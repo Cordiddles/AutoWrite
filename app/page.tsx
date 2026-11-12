@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import { AlertTriangle, Building2, Check, FileText, Landmark, Sparkles } from 'lucide-react';
+import { AlertTriangle, Building2, Check, FileText, Landmark, Sparkles, Workflow } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -93,12 +93,18 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <header className="border-b border-white/10 bg-[#071b2c] text-white"><div className="mx-auto flex max-w-[1500px] items-center justify-between px-5 py-4 sm:px-8">
-        <div className="flex items-center gap-3"><div className="grid size-9 place-items-center rounded-xl bg-[#35d1a0] text-[#062033]"><Landmark size={20} /></div><div><p className="text-[15px] font-semibold tracking-tight">Underwriting Project</p><p className="text-xs text-slate-400">Bridge-to-let decision workspace</p></div></div>
-        <span className="rounded-full border border-[#35d1a0]/30 bg-[#35d1a0]/10 px-3 py-1 text-xs font-medium text-[#72e5bf]">UK · unregulated BTL prototype</span>
+        <a href="#top" className="flex items-center gap-3" aria-label="AutoWrite home"><div className="grid size-9 place-items-center rounded-xl bg-[#35d1a0] text-sm font-bold tracking-tight text-[#062033]">AW</div><div><p className="text-[17px] font-semibold tracking-tight">AutoWrite</p><p className="text-xs text-slate-400">Underwriter workspace</p></div></a>
+        <nav className="flex items-center gap-4 text-sm"><a href="#workspace" className="hidden text-slate-300 hover:text-white sm:inline">Workspace</a><a href="#about" className="text-slate-300 hover:text-white">About</a></nav>
       </div></header>
-      <div className="mx-auto grid max-w-[1500px] gap-6 px-5 py-6 sm:px-8 xl:grid-cols-[minmax(0,1fr)_430px]">
+      <section id="top" className="border-b bg-[#071b2c] text-white"><div className="mx-auto max-w-[1500px] px-5 py-10 sm:px-8 sm:py-14">
+        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#72e5bf]">AutoWrite</p>
+        <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight sm:text-5xl">Less admin. More time for underwriting.</h1>
+        <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-300">Simplify day-to-day underwriting tasks and organise the information you need, with your judgement at the centre.</p>
+        <p className="mt-6 max-w-3xl border-l-2 border-[#35d1a0] pl-4 text-sm leading-6 text-slate-300">An unregulated underwriting tool built to make the underwriter’s life easier.</p>
+      </div></section>
+      <div id="workspace" className="mx-auto grid max-w-[1500px] gap-6 px-5 py-8 sm:px-8 xl:grid-cols-[minmax(0,1fr)_430px]">
         <section className="space-y-5">
-          <div><p className="text-sm font-medium text-primary">New case · Bridging buy-to-let</p><h1 className="mt-1 text-3xl font-semibold tracking-tight">Assess the bridge</h1><p className="mt-2 max-w-3xl text-base text-muted-foreground">Test leverage, property risk, borrower profile and exit viability. Verify all figures against the application, valuation and supporting evidence.</p></div>
+          <div><p className="text-sm font-medium text-primary">New case · Bridging buy-to-let</p><h2 className="mt-1 text-3xl font-semibold tracking-tight">Prepare the case for review</h2><p className="mt-2 max-w-3xl text-base text-muted-foreground">Organise the core property, facility, borrower and exit information in one place. AutoWrite highlights factors for review; the underwriter verifies the evidence and makes the decision.</p></div>
           <div className="flex flex-wrap items-center gap-2 rounded-xl border bg-white p-3" aria-label="Example test cases"><span className="mr-1 text-sm font-medium text-muted-foreground">Test scenario:</span>{(['low','moderate','high'] as const).map((level) => <Button key={level} size="sm" variant="outline" onClick={() => { setForm(scenarios[level]); setAssessed(true); }} className="capitalize">{level} risk</Button>)}</div>
           <div className="rounded-2xl border bg-card p-5 shadow-sm sm:p-7">
             <SectionTitle icon={<Building2 size={18} />} title="Property & facility" />
@@ -120,14 +126,14 @@ export default function Home() {
               <Field label="Primary exit" id="exit"><SelectField id="exit" value={form.exit} onChange={(v) => update('exit', v)} options={[['refinance','Refinance to term BTL'],['sale','Open-market sale'],['other','Other / mixed']]} /></Field>
               <Field label="Credit profile" id="credit"><SelectField id="credit" value={form.credit} onChange={(v) => update('credit', v)} options={[['clean','Clean'],['minor','Minor adverse'],['significant','Significant adverse']]} /></Field>
             </div>
-            <div className="mt-7 flex flex-wrap items-center gap-3 border-t pt-5"><Button size="lg" className="h-11 bg-[#087e64] px-5 hover:bg-[#076b56]" onClick={() => setAssessed(true)}><Sparkles /> Assess case</Button><Button size="lg" variant="outline" className="h-11" onClick={() => { setForm(initial); setAssessed(true); }}>Reset example</Button>{!assessed && <span className="text-sm text-amber-700">Inputs changed — run assessment again</span>}</div>
+            <div className="mt-7 flex flex-wrap items-center gap-3 border-t pt-5"><Button size="lg" className="h-11 bg-[#087e64] px-5 hover:bg-[#076b56]" onClick={() => setAssessed(true)}><Sparkles /> Prepare review</Button><Button size="lg" variant="outline" className="h-11" onClick={() => { setForm(initial); setAssessed(true); }}>Reset example</Button>{!assessed && <span className="text-sm text-amber-700">Inputs changed — prepare the review again</span>}</div>
           </div>
-          <div className="rounded-2xl border border-dashed bg-white p-5"><div className="flex gap-3"><div className="grid size-10 shrink-0 place-items-center rounded-xl bg-slate-100"><FileText size={19} /></div><div><h2 className="font-semibold">Evidence checklist</h2><p className="mt-1 text-sm leading-6 text-muted-foreground">For production: application form, valuation, title, AST/rental appraisal, bank statements, credit search, schedule of works and evidence supporting the exit. Secure upload and AI extraction are not enabled in this prototype.</p></div></div></div>
+          <div className="rounded-2xl border border-dashed bg-white p-5"><div className="flex gap-3"><div className="grid size-10 shrink-0 place-items-center rounded-xl bg-slate-100"><FileText size={19} /></div><div><h2 className="font-semibold">Evidence checklist</h2><p className="mt-1 text-sm leading-6 text-muted-foreground">Keep the application, valuation, title, AST or rental appraisal, bank statements, credit search, schedule of works and exit evidence together for underwriter review. Secure upload and document extraction are not enabled in this prototype.</p></div></div></div>
         </section>
         <aside className="xl:sticky xl:top-6 xl:self-start"><div className={`overflow-hidden rounded-2xl border bg-card shadow-sm ${!assessed ? 'opacity-55' : ''}`} aria-live="polite">
           <div className="bg-[#071b2c] p-6 text-white"><div className="flex items-center justify-between"><span className="text-sm text-slate-300">Illustrative case risk</span><span className="rounded-full bg-white/10 px-2.5 py-1 text-xs">Bridge rules v0.2</span></div><div className="mt-5 flex items-end gap-3"><strong className="text-6xl font-semibold tracking-tighter">{result.score}</strong><span className="mb-2 text-slate-400">/ 100</span></div><div className="mt-5 h-2 overflow-hidden rounded-full bg-white/10"><div className="h-full rounded-full bg-[#35d1a0] transition-all" style={{ width: `${result.score}%` }} /></div><div className="mt-4 flex items-center justify-between"><span className="text-sm text-slate-300">Risk band</span><span className="text-lg font-semibold text-[#6ce0ba]">{result.band}</span></div></div>
           <div className="grid grid-cols-3 border-b bg-slate-50"><Metric label="LTV" value={`${result.ltv.toFixed(1)}%`} /><Metric label="LTP" value={`${result.ltp.toFixed(1)}%`} /><Metric label="Gross yield" value={`${result.yieldPct.toFixed(1)}%`} /></div>
-          <div className="p-6"><div className="flex gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4 text-amber-950"><AlertTriangle className="mt-0.5 shrink-0" size={18} /><div><p className="text-sm font-semibold">{result.decision}</p><p className="mt-1 text-sm leading-5 text-amber-800">Credit approval remains with an authorised underwriter.</p></div></div>
+          <div className="p-6"><div className="flex gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4 text-amber-950"><AlertTriangle className="mt-0.5 shrink-0" size={18} /><div><p className="text-sm font-semibold">{result.decision}</p><p className="mt-1 text-sm leading-5 text-amber-800">This output prepares material for review. Credit approval remains with the authorised underwriter.</p></div></div>
             <div className="mt-5 rounded-xl border border-sky-100 bg-sky-50 p-4"><h2 className="text-sm font-semibold text-sky-950">Why this judgement was reached</h2><p className="mt-2 text-sm leading-6 text-sky-900">{result.explanation}</p></div>
             <h2 className="mt-6 text-sm font-semibold uppercase tracking-wider text-muted-foreground">Key factors</h2><ul className="mt-3 space-y-3">{result.reasons.map((reason) => <li key={reason} className="flex gap-3 text-sm"><span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-emerald-50 text-emerald-700"><Check size={13} /></span><span>{reason}</span></li>)}</ul>
             {result.conditions.length > 0 && <><h2 className="mt-6 text-sm font-semibold uppercase tracking-wider text-muted-foreground">Suggested conditions</h2><ul className="mt-3 space-y-2">{result.conditions.map((condition) => <li key={condition} className="text-sm">• {condition}</li>)}</ul></>}
@@ -135,6 +141,16 @@ export default function Home() {
           </div>
         </div></aside>
       </div>
+      <section id="about" className="border-t bg-white"><div className="mx-auto grid max-w-[1500px] gap-8 px-5 py-12 sm:px-8 lg:grid-cols-[1fr_1.1fr]">
+        <div><p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">About AutoWrite</p><h2 className="mt-2 text-3xl font-semibold tracking-tight">Built around the underwriter’s working day.</h2><p className="mt-4 max-w-xl text-base leading-7 text-muted-foreground">An unregulated underwriting tool built to make the underwriter’s life easier.</p></div>
+        <div className="grid gap-4 sm:grid-cols-3">
+          <AboutItem icon={<FileText size={18} />} title="Organise information" text="Bring the key facts and evidence checklist into one consistent workspace." />
+          <AboutItem icon={<Workflow size={18} />} title="Reduce repetition" text="Reuse structured case information instead of rebuilding the same review from scratch." />
+          <AboutItem icon={<Check size={18} />} title="Support judgement" text="Surface factors and suggested conditions for an underwriter to verify, challenge and decide." />
+        </div>
+        <div className="lg:col-span-2 rounded-xl border border-slate-200 bg-slate-50 p-5 text-sm leading-6 text-slate-700"><strong>What “unregulated” means here:</strong> AutoWrite is not presented as an FCA-authorised service or as regulated advice. The term describes this prototype tool; it does not determine whether a particular loan, borrower, lender or transaction is regulated. Users must establish the regulatory status of each case and follow their organisation’s policies and legal obligations.</div>
+      </div></section>
+      <footer className="bg-[#071b2c] text-slate-300"><div className="mx-auto flex max-w-[1500px] flex-col gap-2 px-5 py-7 text-sm sm:flex-row sm:items-center sm:justify-between sm:px-8"><p><span className="font-semibold text-white">AutoWrite</span> · Underwriter workspace</p><p>Decision-support prototype · Human judgement required</p></div></footer>
     </main>
   );
 }
@@ -144,3 +160,4 @@ function NumberField({ id, value, onChange }: { id: string; value: string; onCha
 function SelectField({ id, value, onChange, options }: { id: string; value: string; onChange: (value: string) => void; options: string[][] }) { return <NativeSelect id={id} value={value} onChange={(e) => onChange(e.target.value)}>{options.map(([v,l]) => <NativeSelectOption key={v} value={v}>{l}</NativeSelectOption>)}</NativeSelect>; }
 function SectionTitle({ icon, title }: { icon: React.ReactNode; title: string }) { return <div className="flex items-center gap-2 text-[#0d6957]">{icon}<h2 className="text-lg font-semibold text-foreground">{title}</h2></div>; }
 function Metric({ label, value }: { label: string; value: string }) { return <div className="border-r px-3 py-4 text-center last:border-0"><p className="text-xs text-muted-foreground">{label}</p><p className="mt-1 text-lg font-semibold">{value}</p></div>; }
+function AboutItem({ icon, title, text }: { icon: React.ReactNode; title: string; text: string }) { return <article className="rounded-xl border bg-white p-4"><div className="grid size-9 place-items-center rounded-lg bg-emerald-50 text-emerald-700">{icon}</div><h3 className="mt-4 font-semibold">{title}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{text}</p></article>; }
