@@ -1,4 +1,4 @@
-# Underwriting Project
+# AutoWrite
 
 A UK bridge-to-let underwriting risk assessment prototype.
 
