@@ -1,5 +1,5 @@
 # AutoWrite
 
-A UK bridge-to-let underwriting risk assessment prototype.
+An unregulated underwriting tool built to make the underwriter’s life easier.
 
 Live site: https://underwriting-project-beta.vercel.app
