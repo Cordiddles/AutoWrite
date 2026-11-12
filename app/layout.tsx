@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Bridge-to-Let Underwriting Project',
-  description: 'Explainable, human-reviewed UK bridging buy-to-let risk assessment workspace.',
+  title: 'AutoWrite | Underwriter Workspace',
+  description: 'An unregulated underwriting tool built to make the underwriter’s life easier, with human judgement at the centre.',
 };
 
 export default function RootLayout({
